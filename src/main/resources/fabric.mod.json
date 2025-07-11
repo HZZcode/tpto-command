@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "tpto-command",
+	"version": "${version}",
+	"name": "tpto command",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/tpto-command/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"tpto.zz_404.TptoCommand"
+		],
+		"client": [
+			"tpto.zz_404.TptoCommandClient"
+		]
+	},
+	"mixins": [
+		"tpto-command.mixins.json",
+		{
+			"config": "tpto-command.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
