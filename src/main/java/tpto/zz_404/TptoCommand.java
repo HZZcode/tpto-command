@@ -6,12 +6,14 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import static net.minecraft.server.command.CommandManager.*;
 
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.EnumSet;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -37,8 +39,11 @@ public class TptoCommand implements ModInitializer {
 		);
 	}
 
-	private @NotNull Supplier<Text> tpto(@NotNull ServerPlayerEntity source, @NotNull ServerPlayerEntity player) {
-		source.requestTeleport(player.getX(), player.getY(), player.getZ());
-		return () -> Text.literal(String.format("Teleported %s to %s", source.getName().getString(), player.getName().getString()));
+	private @NotNull Supplier<Text> tpto(@NotNull ServerPlayerEntity source,
+										 @NotNull ServerPlayerEntity target) {
+		source.teleport(target.getServerWorld(), target.getX(), target.getY(), target.getZ(),
+				EnumSet.noneOf(PositionFlag.class), target.getYaw(), target.getPitch());
+		return () -> Text.literal(String.format("Teleported %s to %s",
+				source.getName().getString(), target.getName().getString()));
 	}
 }
