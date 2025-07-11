@@ -38,7 +38,7 @@ public class TptoCommand implements ModInitializer {
 	}
 
 	private @NotNull Supplier<Text> tpto(@NotNull ServerPlayerEntity source, @NotNull ServerPlayerEntity player) {
-		source.teleport(player.getX(), player.getY(), player.getZ(), true);
+		source.requestTeleport(player.getX(), player.getY(), player.getZ());
 		return () -> Text.literal(String.format("Teleported %s to %s", source.getName().getString(), player.getName().getString()));
 	}
 }
